@@ -42,10 +42,12 @@ end
 class Library
   attr_reader :name
   attr_accessor :books
+  attr_accessor :available_books
 
-  def initialize(name)
+  def initialize(name, available_books = [])
     @name = name
     @books = []
+    @available_books = available_books
     @x = 0
   end
 
@@ -56,6 +58,7 @@ class Library
     @x += 1
     book = Book.new(title, author, id = @x)
     @books << book
+    @available_books << book
 
   end
 
@@ -89,6 +92,7 @@ class Library
             b.check_out
             b.borrower = borrower.name
             borrower.borrower_books << b
+            @available_books.delete(b)
             return b
           else
             return nil
@@ -110,9 +114,18 @@ class Library
     end
   end
 
-   def check_in_book(book)
+  def check_in_book(book)
       book.check_in
   end
+
+  # def available_books
+  #   a_books = []
+  #   @books.each do |book|
+  #     if book.status == 'available'
+  #       a_books << book
+  #     end
+  #   end
+  # end
 
 
 
@@ -128,6 +141,7 @@ class Library
   # end
 
   def available_books
+    return @available_books
   end
 
   def borrowed_books

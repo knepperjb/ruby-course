@@ -59,13 +59,24 @@ class Library
 
   end
 
+  # def register_new_book(title, author)
+  #   @x += 1
+  #   title = Book.new(title, author, id = @x)
+  #   @books << title
+
+  # end
+
   def check_out_book(book_id, borrower)
     @books.each do |b|
       if book_id == b.id
-        b.check_out
-        b.borrower = borrower.name
-        borrower.borrower_books << b
-        return b
+        if b.status == 'available'
+          b.check_out
+          b.borrower = borrower.name
+          borrower.borrower_books << b
+          return b
+        else
+          return nil
+        end
       end
     end
   end

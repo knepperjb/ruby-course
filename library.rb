@@ -3,12 +3,14 @@ require 'pry-byebug'
 class Book
   attr_reader :author, :title
   attr_accessor :id, :status
+  attr_accessor :borrower
 
-  def initialize(title, author, id = nil, status = 'available')
+  def initialize(title, author, id = nil, status = 'available', borrower = nil)
     @author = author
     @title = title
     @id = id
     @status = status
+    @borrower = borrower
   end
 
   def check_out
@@ -61,11 +63,21 @@ class Library
     @books.each do |b|
       if book_id == b.id
         b.check_out
+        b.borrower = borrower.name
         borrower.borrower_books << b
         return b
       end
     end
   end
+
+  def get_borrower(book_id)
+    @books.each do |b|
+      if book_id == b.id
+        return b.borrower
+      end
+    end
+  end
+
 
 
 

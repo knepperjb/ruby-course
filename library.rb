@@ -2,8 +2,7 @@ require 'pry-byebug'
 
 class Book
   attr_reader :author, :title
-  attr_accessor :id, :status
-  attr_accessor :borrower
+  attr_accessor :id, :status, :borrower
 
   def initialize(title, author, id = nil, status = 'available', borrower = nil)
     @author = author
@@ -39,15 +38,18 @@ class Borrower
   end
 end
 
+######################################################
+
 class Library
   attr_reader :name
-  attr_accessor :books
+  attr_accessor :books, :available_books, :borrowed_books
   attr_accessor :available_books
 
-  def initialize(name, available_books = [])
+  def initialize(name, available_books = [], borrowed_books = [])
     @name = name
     @books = []
     @available_books = available_books
+    @borrowed_books = borrowed_books
     @x = 0
   end
 
@@ -93,6 +95,7 @@ class Library
             b.borrower = borrower.name
             borrower.borrower_books << b
             @available_books.delete(b)
+            @borrowed_books << b
             return b
           else
             return nil
@@ -116,6 +119,7 @@ class Library
 
   def check_in_book(book)
       book.check_in
+      @borrowed_books.delete(book)
   end
 
   # def available_books
@@ -140,10 +144,10 @@ class Library
   # def check_in_book(book)
   # end
 
-  def available_books
-    return @available_books
-  end
+  # def available_books
+  #   return @available_books
+  # end
 
-  def borrowed_books
-  end
+  # def borrowed_books
+  # end
 end

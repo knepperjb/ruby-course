@@ -66,20 +66,41 @@ class Library
 
   # end
 
+  # def check_out_book(book_id, borrower)
+  #   @books.each do |b|
+  #     if book_id == b.id
+  #       if b.status == 'available'
+  #         b.check_out
+  #         b.borrower = borrower.name
+  #         borrower.borrower_books << b
+  #         return b
+  #       else
+  #         return nil
+  #       end
+  #     end
+  #   end
+  # end
+
   def check_out_book(book_id, borrower)
-    @books.each do |b|
-      if book_id == b.id
-        if b.status == 'available'
-          b.check_out
-          b.borrower = borrower.name
-          borrower.borrower_books << b
-          return b
-        else
-          return nil
+    if borrower.borrower_books.count <= 1
+      @books.each do |b|
+        if book_id == b.id
+          if b.status == 'available'
+            b.check_out
+            b.borrower = borrower.name
+            borrower.borrower_books << b
+            return b
+          else
+            return nil
+          end
         end
       end
+    else
+      return nil
     end
   end
+
+ 
 
   def get_borrower(book_id)
     @books.each do |b|
@@ -87,6 +108,10 @@ class Library
         return b.borrower
       end
     end
+  end
+
+   def check_in_book(book)
+      book.check_in
   end
 
 
@@ -99,8 +124,8 @@ class Library
   # def check_out_book(book_id, borrower)
   # end
 
-  def check_in_book(book)
-  end
+  # def check_in_book(book)
+  # end
 
   def available_books
   end

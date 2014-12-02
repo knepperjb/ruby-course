@@ -9,7 +9,7 @@ describe Book do
 
     expect(book.title).to eq "The Stranger"
     expect(book.author).to eq "Albert Camus"
-    expect(book.id).to be_nil
+    expect(book.id).to eq(nil)
   end
 
   it "has a default status of available" do
@@ -20,12 +20,12 @@ describe Book do
   it "can be checked out" do
     book = Book.new("The Stranger", "Albert Camus")
     did_it_work = book.check_out
-    expect(did_it_work).to be_true
+    expect(did_it_work).to eq(true)
     expect(book.status).to eq 'checked_out'
   end
 
   xit "can't be checked out twice in a row" do
-    book = Book.new
+    book = Book.new("The Stranger", "Albert Camus")
     did_it_work = book.check_out
     expect(did_it_work).to eq(true)
 

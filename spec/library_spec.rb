@@ -68,8 +68,8 @@ describe Library do
     expect(created_book.id).to_not be_nil
   end
 
-  xit "can add multiple books" do
-    lib = Library.new
+  it "can add multiple books" do
+    lib = Library.new("James")
     lib.register_new_book("One", "Bob")
     lib.register_new_book("Two", "Bob")
     lib.register_new_book("Three", "Bob")
@@ -77,8 +77,8 @@ describe Library do
     expect(lib.books.count).to eq(3)
   end
 
-  xit "allows a Borrower to check out a book by its id" do
-    lib = Library.new
+  it "allows a Borrower to check out a book by its id" do
+    lib = Library.new("James")
     lib.register_new_book("Green Eggs and Ham", "Dr. Seuss")
     book_id = lib.books.first.id
 
@@ -94,8 +94,8 @@ describe Library do
     expect(book.status).to eq 'checked_out'
   end
 
-  xit "knows who borrowed a book" do
-    lib = Library.new
+  it "knows who borrowed a book" do
+    lib = Library.new("James")
     lib.register_new_book("The Brothers Karamazov", "Fyodor Dostoesvky")
     book_id = lib.books.first.id
 

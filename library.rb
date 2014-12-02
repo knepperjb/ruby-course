@@ -1,3 +1,4 @@
+require 'pry-byebug'
 
 class Book
   attr_reader :author, :title
@@ -29,8 +30,10 @@ end
 
 class Borrower
   attr_reader :name
-  def initialize(name)
+  attr_accessor :borrower_books
+  def initialize(name, borrower_books = [])
     @name = name
+    @borrower_books = borrower_books
   end
 end
 
@@ -51,14 +54,27 @@ class Library
     @x += 1
     book = Book.new(title, author, id = @x)
     @books << book
-  end
 
-  def add_book
   end
-
 
   def check_out_book(book_id, borrower)
+    @books.each do |b|
+      if book_id == b.id
+        b.check_out
+        borrower.borrower_books << b
+        return b
+      end
+    end
   end
+
+
+
+  # def add_book(title, author)
+  # end
+
+
+  # def check_out_book(book_id, borrower)
+  # end
 
   def check_in_book(book)
   end
